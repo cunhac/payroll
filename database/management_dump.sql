@@ -1,0 +1,43 @@
+BEGIN TRANSACTION;
+CREATE TABLE employees (
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        full_name TEXT , 
+        birth_date TIMESTAMP,
+        document_number TEXT ,
+        hiring_date TIMESTAMP,
+        dismissal_date TEXT,
+        office TEXT ,
+        departament TEXT,
+        status TEXT
+        );
+INSERT INTO "employees" VALUES(1,'LOUISE MARK','1985-01-1985','32145','01-04-2020',NULL,'SECRETARIAT','DIRECTION','ACTIVE');
+INSERT INTO "employees" VALUES(2,'CAMILA JHONSON','1980-06-1980','65412','01-04-2020',NULL,'SELLER','COMMERCIAL','ACTIVE');
+INSERT INTO "employees" VALUES(3,'REGGINA PIRES','1979-12-1979','23145','01-04-2020',NULL,'SHOPPER','PURCHASE','ACTIVE');
+INSERT INTO "employees" VALUES(4,'MIRNA LEMON','1982-10-1982','36521','01-04-2020',NULL,'CONTROLLER','CONTROLLERSHIP','ACTIVE');
+INSERT INTO "employees" VALUES(5,'STEPHANIE FREIRE','1975-05-1975','125478','01-04-2020',NULL,'SUPPLY CHAIN','LOGISTICS','ACTIVE');
+CREATE TABLE salary(
+        name TEXT ,
+        salary FLOAT , 
+        bonus FLOAT,
+        overtime FLOAT ,
+        absences_value FLOAT,
+        late_value FLOAT,
+        t_vouchers FLOAT,
+        health_care FLOAT ,
+        dental_care FLOAT,
+        meal_ticket FLOAT,
+        inss FLOAT,
+        irrf FLOAT,
+        earnings FLOAT,
+        discounts FLOAT,
+        liquid_salary FLOAT,
+        accrual TEXT    
+        );
+INSERT INTO "salary" VALUES('LOUISE MARK',5648.9,0.0,577.8,0.0,109.84,338.93,112.98,28.24,56.49,713.09,1516.24,6226.7,2875.81,3350.89,'04-2020');
+INSERT INTO "salary" VALUES('CAMILA JHONSON',4600.0,2300.0,470.55,0.0,102.22,276.0,92.0,23.0,46.0,709.88,1831.68,7370.55,3080.78,4289.77,'04-2020');
+INSERT INTO "salary" VALUES('REGGINA PIRES',4290.8,0.0,175.5,0.0,59.6,257.45,85.82,21.45,42.91,625.28,864.23,4466.3,1956.74,2509.56,'04-2020');
+INSERT INTO "salary" VALUES('MIRNA LEMON',12980.4,0.0,1416.0,0.0,144.23,778.82,259.61,64.9,129.8,713.09,3762.91,14396.4,5853.36,8543.04,'04-2020');
+INSERT INTO "salary" VALUES('STEPHANIE FREIRE',5800.0,0.0,632.64,0.0,161.11,348.0,116.0,29.0,58.0,713.09,1572.88,6432.64,2998.08,3434.56,'04-2020');
+DELETE FROM "sqlite_sequence";
+INSERT INTO "sqlite_sequence" VALUES('employees',5);
+COMMIT;
