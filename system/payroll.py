@@ -31,9 +31,11 @@ def salary(gross_salary):
     while True:
         worked_days = day('Number of days worked: ')
         if int(worked_days) < WORKDAYS_IN_MONTH:
-            salary = round(gross_salary / WORKDAYS_IN_MONTH * int(worked_days), 2)return salary
+            salary = round(gross_salary / WORKDAYS_IN_MONTH * int(worked_days), 2)
+            return salary
         elif int(worked_days) == WORKDAYS_IN_MONTH:
-            salary = round(gross_salary, 2)return salary
+            salary = round(gross_salary, 2)
+            return salary
         elif int(worked_days) < 0:
             print('Incorrect information! The correct is 0 to 30 days.')
         elif int(worked_days) > WORKDAYS_IN_MONTH:
@@ -45,11 +47,11 @@ def inss_calculation(salary, overtime_total):
     This function calculates the discount amount on the employee's payroll for the INSS. The basis for calculation
     (gross salary of the month + overtime) with the base value result, a rate is established for the calculation of the
     discount. The consultation of the rate was justified through the link:https://tabeladoinss2019.com/tabela-inss-2021/
-    :param salario: value corresponding to that informed in the salary function.
+    :param salary value corresponding to that informed in the salary function.
     :param overtime: the percentage of 50% was considered for the calculation of overtime.
     :return: inss_value
     """
-    base_salary_inss = salary + overtime_total
+    salary_base_inss = salary + overtime_total
 
     inss1_min_salary = 0
     inss1_max_salary = 1045.00
@@ -67,14 +69,14 @@ def inss_calculation(salary, overtime_total):
     max_discount_inss = 713.09
 
 
-    if inss1_min_salary <= base_salary_inss <= inss1_max_salary:
-        inss_value = round(float(base_salary_inss * aliquot_inss1 / 100), 2)
-    elif inss2_min_salary <= base_salary_inss <= inss2_max_salary:
-        inss_value = round(float(base_salary_inss * aliquot_inss2 / 100), 2)
-    elif inss3_min_salary <= base_salary_inss <= inss3_max_salary:
-        inss_value = round(float(base_salary_inss * aliquot_inss3 / 100), 2)
-    elif inss4_min_salary <= base_salary_inss <= inss4_max_salary:
-        inss_value = round(float(base_salary_inss * aliquot_inss4 / 100), 2)
+    if inss1_min_salary <= salary_base_inss <= inss1_max_salary:
+        inss_value = round(float(salary_base_inss * aliquot_inss1 / 100), 2)
+    elif inss2_min_salary <= salary_base_inss <= inss2_max_salary:
+        inss_value = round(float(salary_base_inss * aliquot_inss2 / 100), 2)
+    elif inss3_min_salary <= salary_base_inss <= inss3_max_salary:
+        inss_value = round(float(salary_base_inss * aliquot_inss3 / 100), 2)
+    elif inss4_min_salary <= salary_base_inss <= inss4_max_salary:
+        inss_value = round(float(salary_base_inss * aliquot_inss4 / 100), 2)
     else:
         inss_value = round(float(max_discount_inss), 2) 
 
@@ -93,7 +95,7 @@ def irrf_calculation(salary, overtime_total, inss_value, bonus):
     :param bonus: value informed through the input requested in the function payroll_calculation.
     :return: irrf_value
     """
-    base_salary_irrf = salary - inss_value + overtime_total + bonus
+    salary_base_irrf = salary - inss_value + overtime_total + bonus
 
     irrf1_min_salary = 0
     irrf1_max_salary = 1903.98
@@ -110,16 +112,16 @@ def irrf_calculation(salary, overtime_total, inss_value, bonus):
     aliquot_irrf4 = 22.5
     aliquot_max = 27.5
 
-    if irrf1_min_salary <= base_salary_irrf <= irrf1_max_salary:
-        irrf_value = round(float(base_salary_irrf * aliquot_irrf1 / 100), 2)
-    elif irrf2_min_salary <= base_salary_irrf <= irrf2_max_salary:
-        irrf_value = round(float(base_salary_irrf * aliquot_irrf2 / 100), 2)
-    elif irrf3_min_salary <= base_salary_irrf <= irrf3_max_salary:
-        irrf_value = round(float(base_salary_irrf * aliquot_irrf3 / 100), 2)
-    elif irrf4_min_salary <= base_salary_irrf <= irrf4_max_salary:
-        irrf_value = round(float(base_salary_irrf * aliquot_irrf4 / 100), 2)
+    if irrf1_min_salary <= salary_base_irrf <= irrf1_max_salary:
+        irrf_value = round(float(salary_base_irrf * aliquot_irrf1 / 100), 2)
+    elif irrf2_min_salary <= salary_base_irrf <= irrf2_max_salary:
+        irrf_value = round(float(salary_base_irrf * aliquot_irrf2 / 100), 2)
+    elif irrf3_min_salary <= salary_base_irrf <= irrf3_max_salary:
+        irrf_value = round(float(salary_base_irrf * aliquot_irrf3 / 100), 2)
+    elif irrf4_min_salary <= salary_base_irrf <= irrf4_max_salary:
+        irrf_value = round(float(salary_base_irrf * aliquot_irrf4 / 100), 2)
     else:
-        irrf_value = round(base_salary_irrf * aliquot_max / 100, 2)
+        irrf_value = round(salary_base_irrf * aliquot_max / 100, 2)
 
     return irrf_value
 
@@ -143,7 +145,7 @@ def payroll_calculation():
     accrual_year = year('Accrual year: ')
     accrual = f'{accrual_month}-{accrual_year}'
     salary_value = month_salary()
-    base_salary = salary(salary_value)
+    salary_base = salary(salary_value)
     overtime = value_input('Overtime: ')
     absences = value_input('Absences: ')
     late = value_input('Late: ')
@@ -155,17 +157,17 @@ def payroll_calculation():
     daily_wage = round(salary_value / 30, 2)
     absences_value = round(daily_wage * absences, 2)
     late_value = round(daily_wage * late / 60, 2)
-    inss_value = inss(base_salary, overtime_total)
-    irrf_value = irrf(base_salary, overtime_total, inss_value, bonus)
+    inss_value = inss(salary_base, overtime_total)
+    irrf_value = irrf(salary_base, overtime_total, inss_value, bonus)
     sleep(2)
 
 
 
     header('EARNINGS')
-    print(f'Salary:  {base_salary}')
+    print(f'Salary:  {salary_base}')
     print(f'Bonus:  {bonus}')
     print(f'Overtime:  {overtime_total }')
-    earnings_total = round(base_salary + overtime_total + bonus, 2)
+    earnings_total = round(salary_base + overtime_total + bonus, 2)
     sleep(2)
 
     print(line())
@@ -175,10 +177,10 @@ def payroll_calculation():
 
     header('DISCOUNTS')
 
-    transportation_vouchers = round(base_salary * 6 / 100, 2)
-    health_care = round(base_salary * 2 / 100, 2)
-    dental_care = round(base_salary * 0.5 / 100, 2)
-    meal_ticket = round(base_salary * 1 / 100, 2)
+    transportation_vouchers = round(salary_base * 6 / 100, 2)
+    health_care = round(salary_base * 2 / 100, 2)
+    dental_care = round(salary_base * 0.5 / 100, 2)
+    meal_ticket = round(salary_base * 1 / 100, 2)
 
     print(f'absences: {absences_value}')
     print(f'late: {late_value}')
@@ -205,7 +207,7 @@ def payroll_calculation():
     INSERT INTO salary (name,  salary ,bonus,  overtime, absences_value, late_value, 
     t_vouchers, health_care, dental_care, meal_ticket, inss, irrf, 
     earnings, discounts, liquid_salary, accrual)
-    VALUES ('{name}',  '{base_salary}' ,'{bonus}',  '{overtime_total}', '{absences_value}', 
+    VALUES ('{name}',  '{salary_base}' ,'{bonus}',  '{overtime_total}', '{absences_value}', 
     '{late_value}',  '{transportation_vouchers}', '{health_care}', '{dental_care}', 
     '{meal_ticket}', '{inss_value}', '{irrf_value}', '{earnings_total}', '{discounts_total}', 
     '{liquid_salary}', '{accrual}')

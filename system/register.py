@@ -58,7 +58,7 @@ def search_employee():
         """, (name,))
 
         lines = cursor.fetchall()
-        # foi criada a variavel linhas para nao perder o historico fetchall que é registrado uma vez.
+        
         if len(lines) == 0:
             print('Unregistered employee.')
             print('Do you want to register an employee?')
