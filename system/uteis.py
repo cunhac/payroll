@@ -15,14 +15,14 @@ def line(tam=42):
     return '-' * tam
 
 
-def header(txt):
+def header(header_text):
     """
     Standard header structure for better visualization of information in print;
-    :param txt: The centered header text.
-    :return:  txt
+    :param header_text: The centered header text.
+    :return: header_text
     """
     print(line())
-    print(txt.center(42))
+    print(header_text.center(42))
     print(line())
 
 def day(msg):
